@@ -1,0 +1,44 @@
+name: pr
+on: [pull_request]
+jobs:
+  pr-tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+
+      # run tests tagged "@smoke"
+      # https://github.com/bahmutov/cy-grep
+      - name: Smoke tests 💨
+        # https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run stop-only
+          start: npm run start:ci
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:8888'
+          # run only the tests tagged @smoke
+          env: grepTags=@smoke
+          # record the results on the Cypress Dashboard
+          # https://on.cypress.io/dashboard-introduction
+          record: true
+          group: '1 - smoke tests'
+          tag: smoke
+
+      # if smoke tests passed, run all the tests
+      - name: All E2E tests 🧪
+        uses: cypress-io/github-action@v5
+        with:
+          # we have already installed all dependencies above
+          install: false
+          # the server is already running
+          # record the results on the Cypress Dashboard
+          # https://on.cypress.io/dashboard-introduction
+          record: true
+          group: '2 - all tests'
+
+      # https://github.com/bahmutov/find-cypress-specs
+      - name: Print test names 🖨
+        run: npm run print-tests
+
+            --expect-exactly expected/burn-counter.json
