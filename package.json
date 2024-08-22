@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "cypress-grep-example",
+  "version": "0.0.0-development",
+  "description": "Example application with grep tags inside the test names",
+  "scripts": {
+    "start": "npm run cy",
+    "build": "npm install",
+    "cy:open": "cypress open",
+    "cy:headless": "cypress run --headless --browser chrome --config-file cypress.config.ts",
+    "print-tests": "find-cypress-specs --names",
+  },
+  "devDependencies": {
+    "@cypress/grep": "^4.1.0",
+    "@types/cypress-dotenv": "^2.0.3",
+    "@types/node": "^20.14.2",
+    "cypress": "^13.12.0",
+    "cypress-failed-log": "^2.10.0",
+    "cypress-parallel": "^0.14.0",
+    "cypress-plugin-tab": "^1.0.5",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-chai-friendly": "^1.0.1",
+    "eslint-plugin-cypress": "^3.4.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "fs-extra": "^11.2.0",
+    "launchdarkly-js-client-sdk": "^3.4.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  }
+}
