@@ -1,20 +1,19 @@
 name: pr
-on: [pull_request]
+on: push
 jobs:
   pr-tests:
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout 🛎
+      - name: Checkout
         uses: actions/checkout@v3
 
       # run tests tagged "@smoke"
-      # https://github.com/bahmutov/cy-grep
       - name: Smoke tests 💨
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v5
         with:
-          build: npm run stop-only
-          start: npm run start:ci
+          build: npm run build
+          start: npm run start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:8888'
           # run only the tests tagged @smoke
